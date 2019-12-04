@@ -1,0 +1,13 @@
+[{
+  "id":1,
+  "text": "THE FIRST THING TO DO TODAY",
+  "isChecked": false,
+  "isActivated": true,
+  "amounts":1
+}, {
+  "id": 2,
+  "text": "THE SECOND THING TO DO TODAY",
+  "isChecked": false,
+  "isActivated": false,
+  "amounts": 2
+}]
