@@ -1,0 +1,37 @@
+{
+    "name": "react-pomodoro",
+    "version": "1.0.0",
+    "description": "react pomodoro",
+    "main": "index.js",
+    "scripts": {
+        "start": "webpack-dev-server --mode development --open --hot",
+        "build": "webpack --mode production",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/imjerry1995/react-pomodoro.git"
+    },
+    "keywords": [
+        "react",
+        "pomodoro"
+    ],
+    "author": "WAN YI,WENG (Jerry)",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/imjerry1995/react-pomodoro/issues"
+    },
+    "homepage": "https://github.com/imjerry1995/react-pomodoro#readme",
+    "devDependencies": {
+        "@babel/core": "^7.7.4",
+        "@babel/preset-env": "^7.7.4",
+        "@babel/preset-react": "^7.7.4",
+        "babel-loader": "^8.0.6",
+        "html-webpack-plugin": "^3.2.0",
+        "react": "^16.12.0",
+        "react-dom": "^16.12.0",
+        "webpack": "^4.41.2",
+        "webpack-cli": "^3.3.10",
+        "webpack-dev-server": "^3.9.0"
+    }
+}
