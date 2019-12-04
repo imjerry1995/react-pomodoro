@@ -19,25 +19,43 @@ class App extends Component {
       amounts: 3
     }]; 
     this.state = {
-      todos: todos
+      todos: todos,
+      todoText: '' //input 綁定
     }
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
-  // componentDidMount(){
-  //   撈api
-  // }
+  componentDidMount(){
+    //console.log('mount',this.state.todos)
+  }
+
+  handleChange(e) {
+    this.setState({
+      todoText: e.target.value
+    })
+  }
 
   handleSubmit(){
-    alert('OK')
+    const {todos, todoText} = this.state
+    const newTodo = {
+      id: todos.length+1,
+      text: todoText,
+      isChecked: false,
+      isActivated: false,
+      amounts: 1
+    }
+    this.setState({
+      todos: [...todos, newTodo]
+    })
   }
 
   render(){
-    const {todos} = this.state
-    // console.log(todos)
+    const {todos, todoText} = this.state
+    //console.log(todos)
     return (
       <div>
-        <CreateTodo handleSubmit={this.handleSubmit}/>
+        <CreateTodo value={todoText} handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>
         <TodoList todos={todos}/>
       </div>
     )

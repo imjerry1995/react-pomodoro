@@ -6,7 +6,7 @@ class TodoList extends Component{
     const {todos} = this.props
     return (
       <div>
-        {todos.map((item,index) => {
+        {todos.map((item,index) => { //map 慣用寫法
           return <Todo key={index} todo={item} />
         })}
       </div>
