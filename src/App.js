@@ -24,11 +24,12 @@ class App extends Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
-  componentDidUpdate(){
-    console.log('mount',this.state.todos)
-  }
+  // componentDidUpdate(){
+  //   console.log('mount',this.state.todos)
+  // }
 
   handleChange(e) {
     this.setState({
@@ -46,7 +47,8 @@ class App extends Component {
       amounts: 1
     }
     this.setState({
-      todos: [...todos, newTodo]
+      todos: [...todos, newTodo],
+      todoText: ''
     })
   }
 
@@ -67,7 +69,7 @@ class App extends Component {
     return (
       <div>
         <CreateTodo value={todoText} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
-        <TodoList todos={todos} handleDelete={nowTodo => this.handleDelete(nowTodo)}/>
+        <TodoList todos={todos} handleDelete={this.handleDelete}/>
       </div>
     )
   }
