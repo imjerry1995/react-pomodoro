@@ -24,8 +24,8 @@ class App extends Component {
       isPause: false,
       amounts: 3,
       time: {
-        min: '5',
-        sec: '00'
+        min: 5,
+        sec: 9
       }
     }]; 
     this.state = {
@@ -36,12 +36,11 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handlePlay = this.handlePlay.bind(this)
-    // this.handlePause = this.handlePause.bind(this)
-    this.countDown = null
+    this.stopCountDown = this.stopCountDown.bind(this)
   }
 
   componentDidUpdate(prevProps, prepState){
-    console.log(prepState.todos[0].time)
+    console.log(prepState.todos[0])
   }
 
   handleChange(e) {
@@ -51,6 +50,7 @@ class App extends Component {
   }
 
   handleSubmit(){
+    this.stopCountDown()
     const {todos, todoText} = this.state
     const newTodo = {
       id: todos.length+1,
@@ -58,7 +58,11 @@ class App extends Component {
       isChecked: false,
       isActivated: false,
       isPause: false,
-      amounts: 1
+      amounts: 0,
+      time: {
+        min: 25,
+        sec: 0
+      }
     }
     this.setState({
       todos: [...todos, newTodo],
@@ -67,6 +71,7 @@ class App extends Component {
   }
 
   handleDelete(nowTodo){
+    this.stopCountDown()
     const {todos, todoText} = this.state
     todos.map(item =>{
       if(item.id !== nowTodo) return item
@@ -79,19 +84,40 @@ class App extends Component {
 
   //處理播放
   handlePlay(nowTodo){
+    this.stopCountDown() //先強制停掉所有計時器
     const {todos} = this.state
     const todoSelect = todos.find(item=>{ //找出目前是哪個 todo，抓裡面的倒數時間
       return item.id === nowTodo
     })
     todoSelect.isPause = !todoSelect.isPause //現在圖是否顯示暫停（顯示暫停表示現在在跑）
+    todoSelect.isActivated = !todoSelect.isActivated
     let maxTime = todoSelect.time.min * 60 + todoSelect.time.sec //把目前抓到的todo的時間換算成秒數
 
     const countDown = setInterval(() => {
       maxTime--
       const newTodos = todos.map(item => { //之後想想是否可以更精簡
-        if (item !== todoSelect) return item
+        if (item !== todoSelect) {
+          return {
+            ...item,
+            isActivated: false, //其他的觸發都關掉
+            isPause: false//其他的強制變暫停
+          }
+        }
+        if (maxTime==0) { //歸零之後
+          return {
+            ...item,
+            isPause: !todoSelect.isPause,
+            amounts: todoSelect.amounts+1,
+            time: {
+              min: 25,
+              sec: 0
+            }
+          }
+        }
         return {
           ...item,
+          isActivated: todoSelect.isActivated,
+          isPause: todoSelect.isPause,
           time: {
             min: parseInt(maxTime / 60),
             sec: maxTime % 60
@@ -104,14 +130,19 @@ class App extends Component {
       maxTime <= 0 && clearInterval(countDown)
     }, 1000)
     
-    const stop = () =>{ //強制結束所有setInterval
-      const highestIntervalId = setInterval(";");
-      for (var i = 0; i < highestIntervalId; i++) {
-        clearInterval(i);
-      }
-    }
     if (!todoSelect.isPause){
-      stop() //停掉， state 已經在最新
+      this.stopCountDown() //停掉， state 已經在最新
+      this.setState({
+        todos: todos
+      })
+    }
+  }
+
+  //強制結束所有計時器
+  stopCountDown(){
+    const highestIntervalId = setInterval(";");
+    for (var i = 0; i < highestIntervalId; i++) {
+      clearInterval(i);
     }
   }
 
