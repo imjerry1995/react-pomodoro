@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import CreateTodo from './CreateTodo'
 import TodoList from './TodoList'
+import PlayButton from './PlayButton'
 
 class App extends Component {
   constructor(props){
@@ -30,7 +31,8 @@ class App extends Component {
     }]; 
     this.state = {
       todos: todos,
-      todoText: '' //input 綁定
+      todoText: '', //input 綁定
+      nowTask: '' //記錄目前正在倒數的任務
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -95,7 +97,7 @@ class App extends Component {
 
     const countDown = setInterval(() => {
       maxTime--
-      const newTodos = todos.map(item => { //之後想想是否可以更精簡
+      const newTodos = todos.map(item => { 
         if (item !== todoSelect) {
           return {
             ...item,
@@ -125,7 +127,8 @@ class App extends Component {
         }
       })
       this.setState({
-        todos: newTodos
+        todos: newTodos,
+        nowTask: todoSelect
       })
       maxTime <= 0 && clearInterval(countDown)
     }, 1000)
@@ -133,7 +136,8 @@ class App extends Component {
     if (!todoSelect.isPause){
       this.stopCountDown() //停掉， state 已經在最新
       this.setState({
-        todos: todos
+        todos: todos,
+        nowTask: todoSelect
       })
     }
   }
@@ -147,12 +151,13 @@ class App extends Component {
   }
 
   render(){
-    const {todos, todoText} = this.state
+    const {todos, todoText, nowTask} = this.state
     //console.log(todos)
     return (
       <div>
         <CreateTodo value={todoText} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
         <TodoList todos={todos} handleDelete={this.handleDelete} handlePlay={this.handlePlay} />
+        <PlayButton todo={nowTask}  handlePlay={this.handlePlay}/>
       </div>
     )
   }

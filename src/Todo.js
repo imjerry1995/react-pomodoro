@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
+import PlayButton from './PlayButton'
 
 class Todo extends Component{
   constructor(props){
     super(props)
 
     this.delete = this.delete.bind(this)
-    this.play = this.play.bind(this)
   }
 
   delete(){
@@ -13,13 +13,9 @@ class Todo extends Component{
     handleDelete(todo.id)
   }
 
-  play(){
-    const {todo, handlePlay} = this.props
-    handlePlay(todo.id)
-  }
-
   render(){
     const {id, text, isChecked, isActivated, isPause, amounts, time} = this.props.todo
+    const {todo, handlePlay} = this.props
     let list = []
     for(let i=0;i<amounts;i++){
       list.push(``)
@@ -34,7 +30,7 @@ class Todo extends Component{
           })}
         </ul>}
         {isActivated && <div className="list-item__time">{time.min<10 ? '0'+time.min:time.min}:{time.sec<10 ? '0'+time.sec:time.sec}</div>}
-        {!isActivated && <button onClick={this.play}>{isPause ? '||':'>'}</button>}
+        {!isActivated && <PlayButton todo={todo} handlePlay={handlePlay}/>}
       </div>
     )
   }
