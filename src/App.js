@@ -20,16 +20,23 @@ class App extends Component {
     }]; 
     this.state = {
       todos: todos,
+      date: new Date(),
+      time: {
+        min: '5',
+        sec: '00'
+      },
       todoText: '' //input 綁定
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
+    this.handlePlay = this.handlePlay.bind(this)
   }
 
-  // componentDidUpdate(){
-  //   console.log('mount',this.state.todos)
-  // }
+  componentDidUpdate(){
+    console.log('min',this.state.time.min)
+    console.log('sec',this.state.time.sec)
+  }
 
   handleChange(e) {
     this.setState({
@@ -63,13 +70,30 @@ class App extends Component {
     })
   }
 
+  //處理播放
+  handlePlay(){
+    const {time} = this.state
+    let maxTime = 10 //最大時間，秒數
+    if (maxTime>=0){
+      setInterval(() => {
+        maxTime--
+        this.setState({
+          time:{
+            min: maxTime/60,
+            sec: maxTime % 60
+          }
+        })
+      }, 1000);
+    }
+  }
+
   render(){
     const {todos, todoText} = this.state
     //console.log(todos)
     return (
       <div>
         <CreateTodo value={todoText} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
-        <TodoList todos={todos} handleDelete={this.handleDelete}/>
+        <TodoList todos={todos} handleDelete={this.handleDelete} handlePlay={this.handlePlay}/>
       </div>
     )
   }
