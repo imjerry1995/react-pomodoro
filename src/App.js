@@ -36,12 +36,12 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handlePlay = this.handlePlay.bind(this)
+    // this.handlePause = this.handlePause.bind(this)
+    this.countDown = null
   }
 
   componentDidUpdate(prevProps, prepState){
-    // console.log('min',this.state.time.min)
-    // console.log('sec',this.state.time.sec)
-    // prepState.time.min === 0 && prepState.time.sec === 0 && 
+    console.log(prepState.todos[0].time)
   }
 
   handleChange(e) {
@@ -80,22 +80,20 @@ class App extends Component {
   //處理播放
   handlePlay(nowTodo){
     const {todos} = this.state
-    todos.map(item => { //找出目前的 todo
-      if (item.id !== nowTodo) return item
-      return item.isPause = !item.isPause //現在圖是否顯示暫停（顯示暫停表示現在在跑）
-    })
-    const todoSelect = todos.find(item=>{
+    const todoSelect = todos.find(item=>{ //找出目前是哪個 todo，抓裡面的倒數時間
       return item.id === nowTodo
     })
+    todoSelect.isPause = !todoSelect.isPause //現在圖是否顯示暫停（顯示暫停表示現在在跑）
     let maxTime = todoSelect.time.min * 60 + todoSelect.time.sec //把目前抓到的todo的時間換算成秒數
+
     const countDown = setInterval(() => {
       maxTime--
-      const newTodos = todos.map(item=>{
+      const newTodos = todos.map(item => { //之後想想是否可以更精簡
         if (item !== todoSelect) return item
         return {
           ...item,
           time: {
-            min: parseInt(maxTime / 60), 
+            min: parseInt(maxTime / 60),
             sec: maxTime % 60
           }
         }
@@ -105,6 +103,16 @@ class App extends Component {
       })
       maxTime <= 0 && clearInterval(countDown)
     }, 1000)
+    
+    const stop = () =>{ //強制結束所有setInterval
+      const highestIntervalId = setInterval(";");
+      for (var i = 0; i < highestIntervalId; i++) {
+        clearInterval(i);
+      }
+    }
+    if (!todoSelect.isPause){
+      stop() //停掉， state 已經在最新
+    }
   }
 
   render(){
@@ -113,7 +121,7 @@ class App extends Component {
     return (
       <div>
         <CreateTodo value={todoText} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
-        <TodoList todos={todos} handleDelete={this.handleDelete} handlePlay={this.handlePlay}/>
+        <TodoList todos={todos} handleDelete={this.handleDelete} handlePlay={this.handlePlay} />
       </div>
     )
   }

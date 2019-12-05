@@ -6,6 +6,7 @@ class Todo extends Component{
 
     this.delete = this.delete.bind(this)
     this.play = this.play.bind(this)
+    //this.pause = this.pause.bind(this)
   }
 
   delete(){
@@ -18,9 +19,13 @@ class Todo extends Component{
     handlePlay(todo.id)
   }
 
+  // pause(){
+  //   const {todo, handlePause} = this.props
+  //   handlePause(todo.id)
+  // }
+
   render(){
-    const {id, text, isChecked, isActivated, amounts, time} = this.props.todo
-    const {handlePlay} = this.props
+    const {id, text, isChecked, isActivated, isPause, amounts, time} = this.props.todo
     let list = []
     for(let i=0;i<amounts;i++){
       list.push(``)
@@ -35,6 +40,7 @@ class Todo extends Component{
           })}
         </ul>
         {isActivated && <div className="list-item__time">{time.min<10 ? '0'+time.min:time.min}:{time.sec<10 ? '0'+time.sec:time.sec}</div>}
+        {/* <button onClick={isPause ? this.pause : this.play}>></button> */}
         <button onClick={this.play}>></button>
       </div>
     )
