@@ -5,6 +5,7 @@ class Todo extends Component{
     super(props)
 
     this.delete = this.delete.bind(this)
+    this.play = this.play.bind(this)
   }
 
   delete(){
@@ -12,8 +13,13 @@ class Todo extends Component{
     handleDelete(todo.id)
   }
 
+  play(){
+    const {todo, handlePlay} = this.props
+    handlePlay(todo.id)
+  }
+
   render(){
-    const {id, text, isChecked, isActivated, amounts} = this.props.todo
+    const {id, text, isChecked, isActivated, amounts, time} = this.props.todo
     const {handlePlay} = this.props
     let list = []
     for(let i=0;i<amounts;i++){
@@ -28,8 +34,8 @@ class Todo extends Component{
             return <li key={index}>{item}</li>
           })}
         </ul>
-        {isActivated && <div className="list-item__time">25:00</div>}
-        <button onClick={handlePlay}>></button>
+        {isActivated && <div className="list-item__time">{time.min<10 ? '0'+time.min:time.min}:{time.sec<10 ? '0'+time.sec:time.sec}</div>}
+        <button onClick={this.play}>></button>
       </div>
     )
   }
