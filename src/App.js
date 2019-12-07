@@ -85,6 +85,7 @@ class App extends Component {
   }
 
   //處理播放
+  // 要新增五分鐘休息功能
   handlePlay(nowTodo){
     this.stopCountDown() //先強制停掉所有計時器
     const {todos} = this.state
