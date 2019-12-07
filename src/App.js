@@ -25,8 +25,8 @@ class App extends Component {
       isPause: false,
       amounts: 3,
       time: {
-        min: 5,
-        sec: 9
+        min: 0,
+        sec: 5
       }
     }]; 
     this.state = {
@@ -42,7 +42,7 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps, prepState){
-    console.log(prepState.todos[0])
+    //console.log(this.state.uncompletedTask)
   }
 
   handleChange(e) {
@@ -68,8 +68,9 @@ class App extends Component {
     }
     this.setState({
       todos: [...todos, newTodo],
-      todoText: ''
+      todoText: '',
     })
+    
   }
 
   handleDelete(nowTodo){
@@ -82,18 +83,20 @@ class App extends Component {
     this.setState({
       todos: todos
     })
+    
   }
 
   //處理播放
   // 要新增五分鐘休息功能
-  handlePlay(nowTodo){
+  handlePlay(nowTodo,bigButton){
     this.stopCountDown() //先強制停掉所有計時器
     const {todos} = this.state
-    const todoSelect = todos.find(item=>{ //找出目前是哪個 todo，抓裡面的倒數時間
+    let todoSelect = todos.find(item=>{ //找出目前是哪個 todo，抓裡面的倒數時間
       return item.id === nowTodo
-    })
+    }) || this.state.todos[0] //一開始這個按鈕按下去綁在第一筆
+    console.log(todoSelect)
     todoSelect.isPause = !todoSelect.isPause //現在圖是否顯示暫停（顯示暫停表示現在在跑）
-    todoSelect.isActivated = !todoSelect.isActivated
+    todoSelect.isActivated = bigButton ? todoSelect.isActivated : !todoSelect.isActivated
     let maxTime = todoSelect.time.min * 60 + todoSelect.time.sec //把目前抓到的todo的時間換算成秒數
 
     const countDown = setInterval(() => {
@@ -109,29 +112,34 @@ class App extends Component {
         if (maxTime==0) { //歸零之後
           return {
             ...item,
-            isPause: !todoSelect.isPause,
+            isPause: !item.isPause,//變回播放鍵
             amounts: todoSelect.amounts+1,
             time: {
-              min: 25,
-              sec: 0
+              min: 0,
+              sec: 6
+            }
+          }
+        }else{
+          return {
+            ...item,
+            isActivated: todoSelect.isActivated,
+            isPause: todoSelect.isPause,
+            time: {
+              min: parseInt(maxTime / 60),
+              sec: maxTime % 60
             }
           }
         }
-        return {
-          ...item,
-          isActivated: todoSelect.isActivated,
-          isPause: todoSelect.isPause,
-          time: {
-            min: parseInt(maxTime / 60),
-            sec: maxTime % 60
-          }
-        }
+        
       })
       this.setState({
         todos: newTodos,
-        nowTask: todoSelect
+        nowTask: todoSelect //沒更新到狀態
       })
-      maxTime <= 0 && clearInterval(countDown)
+      maxTime == 0 && clearInterval(countDown) 
+      maxTime == 0 && this.setState({
+        nowTask: this.state.todos.find(item => item.id === todoSelect.id) //真正更新目前的狀態
+      })
     }, 1000)
     
     if (!todoSelect.isPause){
@@ -152,13 +160,13 @@ class App extends Component {
   }
 
   render(){
-    const {todos, todoText, nowTask} = this.state
-    //console.log(todos)
+    const {todos, todoText, nowTask, uncompletedTask} = this.state
+    console.log('y', nowTask)
     return (
       <div>
         <CreateTodo value={todoText} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
         <TodoList todos={todos} handleDelete={this.handleDelete} handlePlay={this.handlePlay} />
-        <PlayButton todo={nowTask}  handlePlay={this.handlePlay}/>
+        <PlayButton todo={nowTask}  handlePlay={this.handlePlay} bigButton={true}/>
       </div>
     )
   }

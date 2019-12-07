@@ -15,13 +15,14 @@ class Todo extends Component{
 
   render(){
     const {id, text, isChecked, isActivated, isPause, amounts, time} = this.props.todo
-    const {todo, handlePlay} = this.props
+    const {count, todo, handlePlay} = this.props
+    // console.log(count)
     let list = []
     for(let i=0;i<amounts;i++){
       list.push(``)
     }
     return (
-      <div data-id={id} className={`list-item ${isActivated ? 'list-item--ative':''}`}>
+      <div data-id={count} className={`list-item ${isActivated ? 'list-item--ative':''}`}>
         <button className="list-item__checked" onClick={this.delete}></button>
         <div className="list-item__text">{text}</div>
         {isActivated && <ul className="list-item__amount-list">

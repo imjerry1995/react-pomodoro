@@ -8,8 +8,9 @@ class PlayButton extends Component{
   }
 
   play(){
-    const {todo, handlePlay} = this.props
-    handlePlay(todo.id)
+    //bigButton 如果是最大的那個按鈕就會接到這個值
+    const {todo, handlePlay, bigButton} = this.props
+    handlePlay(todo.id, bigButton)
   }
 
   render(){
