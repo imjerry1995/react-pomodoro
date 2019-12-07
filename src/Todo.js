@@ -16,7 +16,6 @@ class Todo extends Component{
   render(){
     const {id, text, isChecked, isActivated, isPause, amounts, time} = this.props.todo
     const {count, todo, handlePlay} = this.props
-    // console.log(count)
     let list = []
     for(let i=0;i<amounts;i++){
       list.push(``)

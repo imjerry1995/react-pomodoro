@@ -6,6 +6,20 @@ import PlayButton from './PlayButton'
 class App extends Component {
   constructor(props){
     super(props)
+    this.state = {
+      todos: [],
+      todoText: '', //input 綁定
+      nowTask: '' //記錄目前正在倒數的任務
+    }
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
+    this.handlePlay = this.handlePlay.bind(this)
+    this.stopCountDown = this.stopCountDown.bind(this)
+  }
+
+  componentDidMount(){
+    //初始化
     let todos = [{
       id: 1,
       text: 'THE FIRST THING TO DO TODAY',
@@ -17,7 +31,7 @@ class App extends Component {
         min: 0,
         sec: 9
       }
-    },{
+    }, {
       id: 2,
       text: 'THE SECOND THING TO DO TODAY',
       isChecked: false,
@@ -28,21 +42,14 @@ class App extends Component {
         min: 0,
         sec: 5
       }
-    }]; 
-    this.state = {
-      todos: todos,
-      todoText: '', //input 綁定
-      nowTask: '' //記錄目前正在倒數的任務
-    }
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.handleDelete = this.handleDelete.bind(this)
-    this.handlePlay = this.handlePlay.bind(this)
-    this.stopCountDown = this.stopCountDown.bind(this)
+    }];
+    this.setState({
+      todos: todos
+    })
   }
 
   componentDidUpdate(prevProps, prepState){
-    //console.log(this.state.uncompletedTask)
+    //這裡之後實作todos有變，存到 localstorage 或 db
   }
 
   handleChange(e) {
@@ -94,7 +101,6 @@ class App extends Component {
     let todoSelect = todos.find(item=>{ //找出目前是哪個 todo，抓裡面的倒數時間
       return item.id === nowTodo
     }) || this.state.todos[0] //一開始這個按鈕按下去綁在第一筆
-    console.log(todoSelect)
     todoSelect.isPause = !todoSelect.isPause //現在圖是否顯示暫停（顯示暫停表示現在在跑）
     todoSelect.isActivated = bigButton ? todoSelect.isActivated : !todoSelect.isActivated
     let maxTime = todoSelect.time.min * 60 + todoSelect.time.sec //把目前抓到的todo的時間換算成秒數
@@ -134,11 +140,11 @@ class App extends Component {
       })
       this.setState({
         todos: newTodos,
-        nowTask: todoSelect //沒更新到狀態
+        nowTask: todoSelect //沒更新到時間，因為是抓按下去的那一刻的內容
       })
       maxTime == 0 && clearInterval(countDown) 
       maxTime == 0 && this.setState({
-        nowTask: this.state.todos.find(item => item.id === todoSelect.id) //真正更新目前的狀態
+        nowTask: this.state.todos.find(item => item.id === todoSelect.id) //真正更新到時間
       })
     }, 1000)
     
@@ -161,7 +167,6 @@ class App extends Component {
 
   render(){
     const {todos, todoText, nowTask, uncompletedTask} = this.state
-    console.log('y', nowTask)
     return (
       <div>
         <CreateTodo value={todoText} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
