@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import CreateTodo from './CreateTodo'
 import TodoList from './TodoList'
 import PlayButton from './PlayButton'
+import './stylesheets/style.scss'
 
 class App extends Component {
   constructor(props){
@@ -28,7 +29,7 @@ class App extends Component {
       isPause: false,
       amounts: 4,
       time: {
-        min: 0,
+        min: 1,
         sec: 9
       }
     }, {

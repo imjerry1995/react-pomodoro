@@ -1,5 +1,6 @@
 const path = require('path')
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   entry: "./src/index.js",
@@ -8,17 +9,39 @@ module.exports = {
     filename: 'bundle.[hash].js'
   },
   module: {
-    rules: [{
-      test: /\.js$/,
-      exclude: /node_modules/,
-      use: {
-          loader: "babel-loader"
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+            loader: "babel-loader"
+        }
+      },
+      {
+        test: /\.(scss|sass)$/,
+        use: [MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: function () {
+                return [
+                  require('autoprefixer')
+                ];
+              }
+            }
+          },
+          'sass-loader'
+        ]
       }
-    }]
+    ]
   },
   plugins: [
     new HtmlWebpackPlugin({
-        template: './template/index.html'
+      template: './template/index.html'
+    }),
+    new MiniCssExtractPlugin({
+      filename: "./dist/css/style.css"
     })
   ]
 }
