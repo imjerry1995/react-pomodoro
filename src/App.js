@@ -180,10 +180,14 @@ class App extends Component {
   render(){
     const {todos, todoText, nowTask, uncompletedTask} = this.state
     return (
-      <div>
+      <div className="container">
+        <div className="col-4">
         <CreateTodo value={todoText} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
         <TodoList todos={todos} handleDelete={this.handleDelete} handlePlay={this.handlePlay} />
-        <PlayButton todo={nowTask}  handlePlay={this.handlePlay} bigButton={true}/>
+        </div>
+        <div className="col-4">
+          <PlayButton todo={nowTask}  handlePlay={this.handlePlay} bigButton={true}/>
+        </div>
       </div>
     )
   }

@@ -2,12 +2,13 @@ import React, {Component} from 'react'
 
 const CreateTodo = (props) =>{
   return (
-    <div>
-      <input type="text" 
+    <div className="add-todo">
+      <input className="add-todo__input"
+      type="text" 
       placeholder="ADD A NEW MISSION..."
       value={props.value}
       onChange={props.handleChange}/>
-      <button onClick={props.handleSubmit}>+</button>
+      <button className="add-todo__btn" onClick={props.handleSubmit}>+</button>
     </div>
   )
 }
