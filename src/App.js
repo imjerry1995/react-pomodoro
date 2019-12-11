@@ -27,10 +27,11 @@ class App extends Component {
       isChecked: false,
       isActivated: true,
       isPause: false,
-      amounts: 4,
+      amounts: 3,
+      breakStatus: '',
       time: {
-        min: 1,
-        sec: 9
+        min: 0,
+        sec: 5
       }
     }, {
       id: 2,
@@ -39,6 +40,7 @@ class App extends Component {
       isActivated: false,
       isPause: false,
       amounts: 3,
+      breakStatus: '',
       time: {
         min: 0,
         sec: 5
@@ -50,7 +52,7 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps, prepState){
-    //這裡之後實作todos有變，存到 localstorage 或 db
+    console.log(this.state)
   }
 
   handleChange(e) {
@@ -117,15 +119,24 @@ class App extends Component {
           }
         }
         if (maxTime==0) { //歸零之後
-          return {
-            ...item,
-            isPause: !item.isPause,//變回播放鍵
-            amounts: todoSelect.amounts+1,
-            time: {
-              min: 0,
-              sec: 6
-            }
+          if(todoSelect.amounts % 5 == 4){ //第五顆的前一顆
+            item.breakStatus = '1'
+          } else if (todoSelect.amounts % 20 == 19) {
+            item.breakStatus = '2'
+          } else {
+            item.breakStatus = ''
           }
+            return {
+              ...item,
+              isPause: !item.isPause, //變回播放鍵
+              amounts: todoSelect.amounts + 1,
+              time: {
+                min: 0,
+                sec: 6
+              }
+            }
+          
+          
         }else{
           return {
             ...item,
