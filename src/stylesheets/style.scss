@@ -1,3 +1,188 @@
-body{
-  background-color:teal;
+@import 'variables';
+@import 'mixins/mixins';
+@import 'reboot';
+
+h1 {
+  @include fonts($color-primary, 36px, bold, 0px)
 }
+
+h2 {
+  @include fonts($color-secondary, 24px, bold, 0px)
+}
+
+h3 {
+  @include fonts($color-secondary, 16px, bold, 0px)
+}
+
+.container {
+  @include full;
+  display: flex;
+  overflow: hidden;
+}
+
+.container>div {
+  flex: 0 0 450px;
+}
+
+.col-6.col-6 {
+  flex-grow: 2;
+  background-color: $color-primary-light;
+}
+
+.col-4.col-4 {
+  flex-grow: 1;
+  background-color: $color-primary-light;
+}
+
+.col-2.col-2 {
+  flex-grow: 0;
+  background-color: $color-secondary;
+}
+
+.task {
+  width: 450px;
+  display: flex;
+  flex-flow: column wrap;
+  padding: 48px 85px;
+}
+
+/* add-todo */
+.add-todo {
+  display: flex;
+  flex: 0 0 40px;
+  margin: 0 2.5px 100px 2.5px;
+
+  input {
+    padding: 16px;
+    flex-grow: 1;
+    border: none;
+
+    &::placeholder {
+      @include fonts($color-primary, inital, bold, 0px);
+      font-style: italic;
+    }
+
+    &:focus {
+      border: none;
+      outline: none;
+    }
+  }
+
+  button {
+    width: 40px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+  }
+}
+
+.add-todo__input {
+  background-color: $color-icon;
+}
+
+.add-todo__btn {
+  @include fonts($color-primary, 16px, bold, 0px);
+  background-color: $color-icon;
+}
+
+/* add-todo End*/
+
+/* list */
+.list {
+
+  h3 {
+    padding: 10px;
+  }
+
+  li {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    border-bottom: 1px solid $color-secondary-light;
+  }
+  
+  &>li:nth-child(1) {
+    border-bottom: none;
+  }
+
+  &>li:nth-child(2) {
+    margin-top: 80px;
+  }
+
+}
+
+.list-item--ative{
+  h3{
+    @include fonts($color-secondary, 24px, bold, 0px)
+  }
+}
+
+.list-item__checked {
+  display: flex;
+  flex-flow: row wrap;
+  border: 2px solid $color-secondary;
+  background-color: transparent;
+  border-radius: 100%;
+  @include square(24px);
+}
+
+.list-item__checked.list-item__checked--active {
+  @include square(48px);
+}
+
+.list-item__infos {
+  display: flex;
+  flex-flow: column wrap;
+  max-width: 85%;
+}
+
+.list-item__amount-list {
+  display: flex;
+  margin-left: 10px;
+
+  li {
+    @include square(12px);
+    border: 1px solid $color-primary;
+    border-radius: 50%;
+    margin-right: 5px;
+  }
+
+}
+
+// .more {
+//   @include fonts($color-primary, 16px, bold, 0px);
+// }
+
+.list-item__time {
+  display: flex;
+  @include fonts($color-primary, 170px, bold, 0px);
+}
+
+/* list End*/
+
+
+/* play button */
+
+.list-item__btn{
+  display: flex;
+  border-radius: 50%;
+  border: none;
+  text-align: center;
+  padding: 20px 30px;
+}
+
+.list-item__btn--big{
+  @include square(96px);
+  color: $color-primary;
+  font-size: 50px;
+}
+
+.list-item__btn--small {
+  @include square(24px);
+  border: 2px solid $color-secondary;
+  font-size: 12px;
+  padding: 3px 5px;
+  color: $color-secondary;
+  background-color: transparent;
+}
+/* play button End*/

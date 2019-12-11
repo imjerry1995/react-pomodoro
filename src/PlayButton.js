@@ -18,7 +18,7 @@ class PlayButton extends Component{
     const {bigButton} = this.props
     return(
       <div className="play-button">
-        <button className={`list-item__btn--${bigButton?'big':'small'}`} onClick={this.play}>{isPause ? '||':'>'}</button>
+        <button className={`list-item__btn list-item__btn--${bigButton?'big':'small'}`} onClick={this.play}>{isPause ? '||':'▶︎'}</button>
       </div>
     )
   }

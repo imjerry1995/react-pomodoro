@@ -181,12 +181,16 @@ class App extends Component {
     const {todos, todoText, nowTask, uncompletedTask} = this.state
     return (
       <div className="container">
-        <div className="col-4">
-        <CreateTodo value={todoText} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
-        <TodoList todos={todos} handleDelete={this.handleDelete} handlePlay={this.handlePlay} />
+        <div className="col-6">
+          <div className="task">
+            <CreateTodo value={todoText} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
+            <TodoList todos={todos} handleDelete={this.handleDelete} handlePlay={this.handlePlay} />
+          </div>
         </div>
         <div className="col-4">
           <PlayButton todo={nowTask}  handlePlay={this.handlePlay} bigButton={true}/>
+        </div>
+        <div className="col-2">
         </div>
       </div>
     )
