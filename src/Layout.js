@@ -6,8 +6,7 @@ const Layout = props =>{
     <div className="container">
       <div className="col-8">
         {props.children}
-      </div>
-      <div className="col-4">
+      </div><div className="col-4">
         <NavBar />
       </div>
     </div>

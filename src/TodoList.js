@@ -7,8 +7,8 @@ const TodoList = (props) =>{
     return (
     <div className="list__wrapper">
       <div>
-        <div className="list__title">TO-DO</div>
-        <ul className="list">
+        <h2 className="list__title">TO-DO</h2>
+        <ul className="list list--blue">
           {
             todos.filter(item => !item.isChecked).map((item, index) => {
               return <Todo key={index} count={index} todo={item} handleDelete={handleDelete} handlePlay={handlePlay} show={true}/>
@@ -17,11 +17,11 @@ const TodoList = (props) =>{
         </ul>
       </div>
       <div>
-        <div className="list__title">DONE</div>
-        <ul className="list">
+        <h2 className="list__title">DONE</h2>
+        < ul className = "list list--blue">
           {
             todos.filter(item => item.isChecked).map((item, index) => {
-              return <Todo key={index} count={index} todo={item} handleDelete={handleDelete} handlePlay={handlePlay} tomo={true}/>
+              return <Todo key={index} count={index} todo={item} handleDelete={handleDelete} handlePlay={handlePlay} show={true} tomo={true}/>
             })
           }
         </ul>

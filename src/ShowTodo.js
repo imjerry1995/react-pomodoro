@@ -16,6 +16,7 @@ constructor(props){
   this.handleChange = this.handleChange.bind(this)
   this.handleDelete = this.handleDelete.bind(this)
   this.handleEnterKey = this.handleEnterKey.bind(this)
+  this.stopCountDown = this.stopCountDown.bind(this)
 }
 
   componentDidMount(){
@@ -75,17 +76,26 @@ constructor(props){
     }
   }
 
+  stopCountDown() {
+    const highestIntervalId = setInterval(";");
+    for (var i = 0; i < highestIntervalId; i++) {
+      clearInterval(i);
+    }
+  }
+
   render(){
     const {todos, todoText, nowTask} = this.state
     //console.log('ren',nowTask)
     return (
-      <div>
+      <div className="show-wrapper">
         <div className="col-6">
-          <RightNav />
-          <BottomCount todo={nowTask}/>
+          <RightNav page={'show'}/>
+          <div className="show-wrapper__btn">
+            <BottomCount todo={nowTask}/>
+          </div>
         </div>
         <div className="col-6">
-          <div className="task">
+          <div className="task task--blue">
             <CreateTodo value={todoText} handleChange={this.handleChange} handleSubmit={this.handleSubmit} handleEnterKey={this.handleEnterKey} />
             <TodoList todos={todos} handleDelete={this.handleDelete} handlePlay={this.handlePlay} show={true}/>
           </div>

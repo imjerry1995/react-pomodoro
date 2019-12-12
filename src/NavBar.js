@@ -12,7 +12,9 @@ const NavBar = props =>{
         </li>
         <li><i className="material-icons">assessment</i></li>
         <li className="logo">
-          <a href="./"><h2>POMODORO</h2></a>
+          <Link to="/">
+            <h2>POMODORO</h2>
+          </Link>
         </li>
       </ul>
     </div>

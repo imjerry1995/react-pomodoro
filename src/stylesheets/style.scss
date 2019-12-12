@@ -40,11 +40,16 @@ h3 {
   background-color: $color-secondary;
 }
 
-.task {
+.task,
+.right-nav {
   width: 450px;
   display: flex;
   flex-flow: column wrap;
   padding: 48px 85px;
+}
+
+.task--blue{
+  padding: 48px 60px;
 }
 
 /* add-todo */
@@ -157,6 +162,30 @@ h3 {
 .list-item__time {
   display: flex;
   @include fonts($color-primary, 170px, bold, 0px);
+}
+
+.list__wrapper {
+  margin-top: -100px;
+}
+
+.list__title{
+  padding: 15px;
+  background: $color-opacity 0% 0% no-repeat padding-box;
+  margin: 50px 0px 20px 0px;
+}
+
+.list--blue{
+  li {
+    border-bottom: 1px solid $color-opacity;
+  }
+  .list-item__checked,
+  .list-item__btn--small {
+    border-color: $color-icon;
+  }
+  .list-item__btn--small,
+  .list-item__text {
+    color: $color-icon;
+  }
 }
 
 /* list End*/
@@ -315,4 +344,70 @@ h3 {
   }
 }
 
+.right-nav{
+  h1{
+    margin-bottom: 50px;
+    cursor: pointer;
+  }
+}
+
+.right-nav__title--white{
+  color: $color-opacity;
+}
+
 /* nav End*/
+
+/* second page */
+.show-wrapper{
+  height: 100%;
+  background: $color-secondary;
+}
+
+.show-wrapper__btn{
+  overflow: hidden;
+  @include square(350px);
+  position: absolute;
+  bottom: 0%;
+  left: 85px;
+}
+
+.btn-count{
+  @include square(350px);
+  position: absolute;
+  bottom: -50%;
+  border-radius: 100%;
+  background: $color-primary-light;
+}
+
+.btn-count__btn-wrapper{
+  @include square(96px);
+  @include center;
+  top: 0;
+  border-radius: 100%;
+  border: 2px solid $color-primary;
+}
+
+.btn-count__btn{
+  @include square(85px);
+  @include center;
+  border-radius: 100%;
+  background-color: $color-primary;
+  color: $color-icon;
+  font-size: 45px;
+  text-align: center;
+  line-height: 90px;
+}
+
+.btn-count__text-wrapper{
+  @include center;
+  position: absolute;
+  text-align: center;
+  top: 110px;
+}
+
+.btn-count__text{
+  font-size: 64px;
+  font-weight: bold;
+  color: $color-primary;
+}
+/* second page End */

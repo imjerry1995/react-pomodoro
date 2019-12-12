@@ -15,6 +15,7 @@ class Todo extends Component{
   }
 
   render(){
+    {/**這裡的 show 是判斷是不是第二頁傳進來的 */}
     const {id, text, isChecked, isActivated, isPause, amounts, min, sec} = this.props.todo
     const {count, todo, handlePlay, show, tomo} = this.props
     let list = []
@@ -22,18 +23,18 @@ class Todo extends Component{
       list.push(``)
     }
     return (
-      <li data-id={count+1} className={`list-item ${isActivated ? 'list-item--ative':''}`}>
-        <button className={`list-item__checked ${isActivated ? 'list-item__checked--active':''}`} onClick={this.delete}></button>
+      <li data-id={count+1} className={`list-item ${show ? '':(isActivated ? 'list-item--ative':'')}`}>
+        <button className={`list-item__checked ${show ? '':(isActivated ? 'list-item__checked--active':'')}`} onClick={this.delete}></button>
         <div className="list-item__infos">
           <h3 className="list-item__text">{text}</h3>
-          {isActivated && <ul className="list-item__amount-list">
+          {show ||(isActivated && <ul className="list-item__amount-list">
             {list.map((item, index)=>{
               return <li key={index}>{item}</li>
             })}
-          </ul>}
+          </ul>)}
         </div>
-        {isActivated && <div className="list-item__time">{min<10 ? '0'+min:min}:{sec<10 ? '0'+sec:sec}</div>}
-        {!isActivated && <PlayButton todo={todo} handlePlay={handlePlay}/>}
+        {show || (isActivated && <div className="list-item__time">{min<10 ? '0'+min:min}:{sec<10 ? '0'+sec:sec}</div>)}
+        {show ||(!isActivated && <PlayButton todo={todo} handlePlay={handlePlay}/>)}
         
         {/*底下是第二頁的內容*/}
         {show && 
