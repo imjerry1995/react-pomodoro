@@ -7,6 +7,7 @@ const CreateTodo = (props) =>{
       type="text" 
       placeholder="ADD A NEW MISSION..."
       value={props.value}
+      onKeyPress={props.handleEnterKey}
       onChange={props.handleChange}/>
       <button className="add-todo__btn" onClick={props.handleSubmit}>+</button>
     </div>

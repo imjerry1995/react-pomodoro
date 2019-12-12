@@ -21,7 +21,7 @@ class Todo extends Component{
       list.push(``)
     }
     return (
-      <li data-id={count} className={`list-item ${isActivated ? 'list-item--ative':''}`}>
+      <li data-id={count+1} className={`list-item ${isActivated ? 'list-item--ative':''}`}>
         <button className={`list-item__checked ${isActivated ? 'list-item__checked--active':''}`} onClick={this.delete}></button>
         <div className="list-item__infos">
           <h3 className="list-item__text">{text}</h3>

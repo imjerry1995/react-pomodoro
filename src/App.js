@@ -17,6 +17,7 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handlePlay = this.handlePlay.bind(this)
+    this.handleEnterKey = this.handleEnterKey.bind(this)
     this.stopCountDown = this.stopCountDown.bind(this)
   }
 
@@ -53,7 +54,7 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps, prepState){
-    console.log(this.state)
+    //console.log(this.state)
   }
 
   handleChange(e) {
@@ -64,7 +65,7 @@ class App extends Component {
 
   handleSubmit(){
     this.stopCountDown()
-    const {todos, todoText} = this.state
+    const {todos, todoText, nowTask} = this.state
     const newTodo = {
       id: todos.length+1,
       text: todoText,
@@ -81,7 +82,6 @@ class App extends Component {
       todos: [...todos, newTodo],
       todoText: '',
     })
-    
   }
 
   handleDelete(nowTodo){
@@ -170,6 +170,12 @@ class App extends Component {
     }
   }
 
+  handleEnterKey(e){
+    if (e.nativeEvent.keyCode === 13) { //e.nativeEvent获取原生的事件对像
+      this.handleSubmit()
+    }
+  }
+
   //強制結束所有計時器
   stopCountDown(){
     const highestIntervalId = setInterval(";");
@@ -184,7 +190,7 @@ class App extends Component {
       <div className="container">
         <div className="col-6">
           <div className="task">
-            <CreateTodo value={todoText} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
+            <CreateTodo value={todoText} handleChange={this.handleChange} handleSubmit={this.handleSubmit} handleEnterKey={this.handleEnterKey} />
             <TodoList todos={todos} handleDelete={this.handleDelete} handlePlay={this.handlePlay} />
           </div>
         </div>
