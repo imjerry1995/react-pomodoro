@@ -7,7 +7,7 @@ h1 {
 }
 
 h2 {
-  @include fonts($color-secondary, 24px, bold, 0px)
+  @include fonts(#ffffff, 24px, bold, 0px)
 }
 
 h3 {
@@ -279,3 +279,32 @@ h3 {
 }
 
 /* count End*/
+
+/* nav */
+.nav {
+  display: flex;
+  justify-content: flex-end;
+
+  li {
+    padding: 48px 48px 0px 48px;
+    cursor: pointer;
+  }
+
+  i {
+    @include fonts($color-icon, 30px, normal, 0px);
+  }
+
+}
+
+.logo {
+  transform: rotate(90deg);
+  transform-origin: 49px 100%;
+  cursor: pointer;
+  margin-top: 100%;
+
+  h2 {
+    color: $color-icon;
+  }
+}
+
+/* nav End*/

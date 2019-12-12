@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import CreateTodo from './CreateTodo'
 import TodoList from './TodoList'
 import PlayButton from './PlayButton'
+import NavBar from './NavBar'
 import './stylesheets/style.scss'
 
 class App extends Component {
@@ -191,6 +192,7 @@ class App extends Component {
           <PlayButton todo={nowTask}  handlePlay={this.handlePlay} bigButton={true}/>
         </div>
         <div className="col-4">
+          <NavBar />
         </div>
       </div>
     )
