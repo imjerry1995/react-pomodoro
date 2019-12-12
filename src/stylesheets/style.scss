@@ -16,26 +16,27 @@ h3 {
 
 .container {
   @include full;
-  display: flex;
+  display: inline-block;
   overflow: hidden;
 }
 
-.container>div {
-  flex: 0 0 450px;
+.container div[class^="col"] {
+  display: inline-block;
+  vertical-align: top;
+  height: 100%;
+}
+
+.col-8.col-8 {
+  width: 66%;
+  background-color: $color-primary-light;
 }
 
 .col-6.col-6 {
-  flex-grow: 2;
-  background-color: $color-primary-light;
-}
-
-.col-2.col-2 {
-  flex-grow: 0;
-  background-color: $color-primary-light;
+  width: 50%;
 }
 
 .col-4.col-4 {
-  flex-grow: 1;
+  width: 33%;
   background-color: $color-secondary;
 }
 
@@ -73,6 +74,7 @@ h3 {
     cursor: pointer;
     border: none;
     outline: none;
+    z-index: 20;
   }
 }
 
@@ -89,6 +91,10 @@ h3 {
 
 /* list */
 .list {
+
+  max-height: 400px;
+  overflow: scroll;
+  
 
   h3 {
     padding: 10px;
@@ -197,6 +203,7 @@ h3 {
   @include square(500px);
   position: absolute;
   top: 15%;
+  left: 48%;
   border: 2px solid $color-primary;
   border-radius: 50%;
 }
