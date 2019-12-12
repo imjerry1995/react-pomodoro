@@ -187,10 +187,10 @@ class App extends Component {
             <TodoList todos={todos} handleDelete={this.handleDelete} handlePlay={this.handlePlay} />
           </div>
         </div>
-        <div className="col-4">
+        <div className="col-2">
           <PlayButton todo={nowTask}  handlePlay={this.handlePlay} bigButton={true}/>
         </div>
-        <div className="col-2">
+        <div className="col-4">
         </div>
       </div>
     )

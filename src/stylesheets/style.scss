@@ -29,13 +29,13 @@ h3 {
   background-color: $color-primary-light;
 }
 
-.col-4.col-4 {
-  flex-grow: 1;
+.col-2.col-2 {
+  flex-grow: 0;
   background-color: $color-primary-light;
 }
 
-.col-2.col-2 {
-  flex-grow: 0;
+.col-4.col-4 {
+  flex-grow: 1;
   background-color: $color-secondary;
 }
 
@@ -100,18 +100,12 @@ h3 {
     align-items: center;
     border-bottom: 1px solid $color-secondary-light;
   }
-  
-  &>li:nth-child(1) {
-    border-bottom: none;
-  }
 
-  &>li:nth-child(2) {
-    margin-top: 80px;
-  }
 
 }
 
 .list-item--ative{
+  padding: 20px 0px;
   h3{
     @include fonts($color-secondary, 24px, bold, 0px)
   }
@@ -175,6 +169,16 @@ h3 {
   @include square(96px);
   color: $color-primary;
   font-size: 50px;
+
+  &::after {
+    content: "";
+    display: inline-block;
+    @include square(14px);
+    background-color: $color-icon;
+    position: absolute;
+    left: 100%;
+    bottom: 0px;
+  }
 }
 
 .list-item__btn--small {
@@ -186,3 +190,92 @@ h3 {
   background-color: transparent;
 }
 /* play button End*/
+
+/* count */
+.count-down {
+  @include square(500px);
+  position: absolute;
+  top: 15%;
+  border: 2px solid $color-primary;
+  border-radius: 50%;
+}
+
+.process-mask {
+  position: absolute;
+  top: 0%;
+  width: 250px;
+  height: 500px;
+  overflow: hidden;
+}
+
+.process-mask.right {
+  right: 0;
+}
+
+.process-mask.left {
+  left: 0;
+}
+
+.process-bar {
+  @include square(476px);
+  border-radius: 50%;
+  border: 12px solid transparent;
+  transform: rotate(45deg);
+  position: absolute;
+}
+
+.process-bar.right {
+  border-top:12px solid $color-primary;
+  border-right:12px solid $color-primary;
+  right: 0%;
+}
+
+.process-bar.left {
+  border-bottom: 12px solid $color-secondary;
+  border-left: 12px solid $color-secondary;
+  left: 0%;
+}
+
+.rightcircle {
+  // animation-delay: -1s;
+  animation: circle_right 2.5s linear;
+}
+
+.leftcircle {
+  animation: circle_left 1.5s linear;
+  animation-delay: 2.5s;
+}
+
+
+@keyframes circle_right {
+  0% {
+    transform: rotate(-135deg);
+  }
+
+  100% {
+    transform: rotate(45deg);
+  }
+}
+
+@keyframes circle_left {
+  0% {
+    transform: rotate(45deg);
+  }
+
+  100% {
+    transform: rotate(225deg);
+  }
+}
+
+.circle {
+  border-radius: 50%;
+  @include square(96%);
+  @include center;
+  background-color: $color-primary;
+
+  .list-item__btn--big{
+    @include center;
+  }
+}
+
+/* count End*/
