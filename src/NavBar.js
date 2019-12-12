@@ -6,7 +6,7 @@ const NavBar = props =>{
     <div className="nav">
       <ul>
         <li>
-          <Link to="/home">
+          <Link to="/show">
             <i className="material-icons">list</i>
           </Link>
         </li>

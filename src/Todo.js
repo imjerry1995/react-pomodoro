@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import PlayButton from './PlayButton'
+import { Link } from 'react-router-dom'
 
 class Todo extends Component{
   constructor(props){
@@ -14,8 +15,8 @@ class Todo extends Component{
   }
 
   render(){
-    const {id, text, isChecked, isActivated, isPause, amounts, time} = this.props.todo
-    const {count, todo, handlePlay} = this.props
+    const {id, text, isChecked, isActivated, isPause, amounts, min, sec} = this.props.todo
+    const {count, todo, handlePlay, show, tomo} = this.props
     let list = []
     for(let i=0;i<amounts;i++){
       list.push(``)
@@ -31,8 +32,27 @@ class Todo extends Component{
             })}
           </ul>}
         </div>
-        {isActivated && <div className="list-item__time">{time.min<10 ? '0'+time.min:time.min}:{time.sec<10 ? '0'+time.sec:time.sec}</div>}
+        {isActivated && <div className="list-item__time">{min<10 ? '0'+min:min}:{sec<10 ? '0'+sec:sec}</div>}
         {!isActivated && <PlayButton todo={todo} handlePlay={handlePlay}/>}
+        
+        {/*底下是第二頁的內容*/}
+        {show && 
+        
+          <div className="play-button">
+            < Link to = "/" >
+            <button className="list-item__btn list-item__btn--small">▶︎</button>
+            </Link>
+          </div>
+        
+        }
+
+        {tomo &&
+          < ul className = "list-item__amount-list list-item__amount-list--done" >
+            {list.map((item, index)=>{
+              return <li key={index}>{item}</li>
+            })}
+          </ul>
+        }
       </li>
     )
   }

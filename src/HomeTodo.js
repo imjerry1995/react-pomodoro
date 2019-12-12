@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import { Route } from 'react-router'
 import CreateTodo from './CreateTodo'
 import TodoList from './TodoList'
 import PlayButton from './PlayButton'
@@ -31,10 +30,12 @@ class HomeTodo extends Component {
       isPause: false,
       amounts: 3,
       breakStatus: '',
-      time: {
-        min: 0,
-        sec: 5
-      }
+      min: 0,
+      sec: 5
+      // time: {
+      //   min: 0,
+      //   sec: 5
+      // }
     }, {
       id: 2,
       text: 'THE SECOND THING TO DO TODAY',
@@ -43,10 +44,8 @@ class HomeTodo extends Component {
       isPause: false,
       amounts: 3,
       breakStatus: '',
-      time: {
-        min: 0,
-        sec: 5
-      }
+      min: 0,
+      sec: 5
     }];
     this.setState({
       todos: todos
@@ -54,7 +53,7 @@ class HomeTodo extends Component {
   }
 
   componentDidUpdate(prevProps, prepState){
-    //console.log(this.state)
+    localStorage.setItem('data', JSON.stringify(this.state))
   }
 
   handleChange(e) {
@@ -73,10 +72,8 @@ class HomeTodo extends Component {
       isActivated: false,
       isPause: false,
       amounts: 0,
-      time: {
-        min: 25,
-        sec: 0
-      }
+      min: 25,
+      sec: 0
     }
     this.setState({
       todos: [...todos, newTodo],
@@ -107,7 +104,7 @@ class HomeTodo extends Component {
     }) || this.state.todos[0] //一開始這個按鈕按下去綁在第一筆
     todoSelect.isPause = !todoSelect.isPause //現在圖是否顯示暫停（顯示暫停表示現在在跑）
     todoSelect.isActivated = bigButton ? todoSelect.isActivated : !todoSelect.isActivated
-    let maxTime = todoSelect.time.min * 60 + todoSelect.time.sec //把目前抓到的todo的時間換算成秒數
+    let maxTime = todoSelect.min * 60 + todoSelect.sec //把目前抓到的todo的時間換算成秒數
 
     const countDown = setInterval(() => {
       maxTime--
@@ -131,10 +128,8 @@ class HomeTodo extends Component {
               ...item,
               isPause: !item.isPause, //變回播放鍵
               amounts: todoSelect.amounts + 1,
-              time: {
-                min: 0,
-                sec: 6
-              }
+              min: 0,
+              sec: 6
             }
           
           
@@ -143,10 +138,8 @@ class HomeTodo extends Component {
             ...item,
             isActivated: todoSelect.isActivated,
             isPause: todoSelect.isPause,
-            time: {
-              min: parseInt(maxTime / 60),
-              sec: maxTime % 60
-            }
+            min: parseInt(maxTime / 60),
+            sec: maxTime % 60
           }
         }
         
