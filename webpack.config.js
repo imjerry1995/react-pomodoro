@@ -38,10 +38,11 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './template/index.html'
-    }),
-    new MiniCssExtractPlugin({
-      filename: "./dist/css/style.css"
-    })
+        template: './template/index.html',
+        filename: "../index.html"
+      }),
+      new MiniCssExtractPlugin({
+        filename: "./css/style.css"
+      })
   ]
 }
