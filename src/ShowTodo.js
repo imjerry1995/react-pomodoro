@@ -25,7 +25,7 @@ constructor(props){
       todos: data.todos,
       nowTask: data.nowTask
     })
-    console.log('...1',data.nowTask)
+    //console.log('...1',data.nowTask)
   }
 
   componentDidUpdate(prevProps, prepState){

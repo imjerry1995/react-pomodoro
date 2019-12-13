@@ -3,6 +3,7 @@ import { Route } from 'react-router'
 import HomeTodo from './HomeTodo'
 import ShowTodo from './ShowTodo'
 import Layout from './Layout'
+import './stylesheets/style.scss'
 
 
 class App extends Component {

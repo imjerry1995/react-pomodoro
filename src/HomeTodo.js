@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import CreateTodo from './CreateTodo'
 import TodoList from './TodoList'
 import PlayButton from './PlayButton'
-import './stylesheets/style.scss'
+
 
 class HomeTodo extends Component {
   constructor(props){
@@ -22,34 +22,38 @@ class HomeTodo extends Component {
 
   componentDidMount(){
     //初始化
-    let todos = [{
-      id: 1,
-      text: 'THE FIRST THING TO DO TODAY',
-      isChecked: false,
-      isActivated: true,
-      isPause: false,
-      amounts: 3,
-      breakStatus: '',
-      min: 0,
-      sec: 5
-      // time: {
-      //   min: 0,
-      //   sec: 5
-      // }
-    }, {
-      id: 2,
-      text: 'THE SECOND THING TO DO TODAY',
-      isChecked: false,
-      isActivated: false,
-      isPause: false,
-      amounts: 3,
-      breakStatus: '',
-      min: 0,
-      sec: 5
-    }];
-    this.setState({
-      todos: todos
-    })
+    if (localStorage.getItem('data')) {
+      this.setState({
+        todos: (JSON.parse(localStorage.getItem('data'))).todos
+      })
+    } else {
+      let todos = [{
+        id: 1,
+        text: 'THE FIRST THING TO DO TODAY',
+        isChecked: false,
+        isActivated: true,
+        isPause: false,
+        amounts: 0,
+        breakStatus: '',
+        min: 0,
+        sec: 5
+      }, {
+        id: 2,
+        text: 'THE SECOND THING TO DO TODAY',
+        isChecked: false,
+        isActivated: false,
+        isPause: false,
+        amounts: 0,
+        breakStatus: '',
+        min: 25,
+        sec: 0
+      }];
+      this.setState({
+        todos: todos
+      })
+    }
+
+    
   }
 
   componentDidUpdate(prevProps, prepState){
@@ -128,8 +132,8 @@ class HomeTodo extends Component {
               ...item,
               isPause: !item.isPause, //變回播放鍵
               amounts: todoSelect.amounts + 1,
-              min: 0,
-              sec: 6
+              min: 25,
+              sec: 0
             }
           
           
