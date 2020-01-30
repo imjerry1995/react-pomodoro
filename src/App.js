@@ -185,7 +185,7 @@ class App extends Component {
   }
 
   render(){
-    const {todos, todoText, nowTask, uncompletedTask} = this.state
+    const {todos, todoText, nowTask} = this.state
     return (
       <div className="container">
         <div className="col-6">
