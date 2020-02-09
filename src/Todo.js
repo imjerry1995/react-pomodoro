@@ -14,7 +14,7 @@ class Todo extends Component{
   }
 
   render(){
-    const {id, text, isChecked, isActivated, isPause, amounts, time} = this.props.todo
+    const {id, text, isChecked, isActivated, isPause, amounts, min, sec} = this.props.todo
     const {count, todo, handlePlay} = this.props
     let list = []
     for(let i=0;i<amounts;i++){
@@ -31,7 +31,7 @@ class Todo extends Component{
             })}
           </ul>}
         </div>
-        {isActivated && <div className="list-item__time">{time.min<10 ? '0'+time.min:time.min}:{time.sec<10 ? '0'+time.sec:time.sec}</div>}
+        {isActivated && <div className="list-item__time">{min<10 ? '0'+min:min}:{sec<10 ? '0'+sec:sec}</div>}
         {!isActivated && <PlayButton todo={todo} handlePlay={handlePlay}/>}
       </li>
     )
