@@ -6,7 +6,9 @@
 	"scripts": {
 		"start": "webpack-dev-server --mode development --open --hot",
 		"build": "webpack --mode production",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"predeploy": "npm run build", 
+		"deploy": "gh-pages -d dist"
 	},
 	"repository": {
 		"type": "git",
@@ -21,7 +23,8 @@
 	"bugs": {
 		"url": "https://github.com/imjerry1995/react-pomodoro/issues"
 	},
-	"homepage": "https://github.com/imjerry1995/react-pomodoro#readme",
+	"private": true,
+	"homepage": "https://imjerry1995.github.io/react-pomodoro",
 	"devDependencies": {
 		"@babel/core": "^7.7.4",
 		"@babel/preset-env": "^7.7.4",
